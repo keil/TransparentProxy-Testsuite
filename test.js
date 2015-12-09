@@ -44,12 +44,9 @@ function assertFalse(closure) {
  */
 try {
 
-  // TODO
-  var TransparentProxy = TProxy;
-
   run("equals/opaque.js");
   run("equals/transparent.js");
-  //run("equals/objectequals.js"); // TODO
+  run("equals/objectequals.js"); // TODO
 
   var end = new Date();
   print("\nTest suite finished after: " + (end-start) + "ms ");

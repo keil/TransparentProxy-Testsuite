@@ -1,3 +1,40 @@
+
+(function() {
+
+  /* TEST
+   * ..
+   */
+  assertFalse(function() {
+    return proxy1==proxy4;
+  }, "name");
+
+})();
+
+(function() {
+
+  /* TEST
+   * ..
+   */
+  assertFalse(function() {
+    return proxy3==proxy4;
+  }, "namesdf");
+
+})();
+
+(function() {
+
+  /* TEST
+   * ..
+   */
+  assertFalse(function() {
+    return proxy2==proxy4;
+  }, "names");
+
+})();
+
+
+
+
 /*
  * Transparent Object Proxies 
  * https://proglang.informatik.uni-freiburg.de/proxy/

@@ -73,7 +73,7 @@
     return Object.equals(object4, primitive1, null);
   });
 
-})();
+});
 
 /** 
  * Test Object.equals comparison operators
@@ -115,7 +115,7 @@
     return Object.equals(proxy1, proxy2, null);
   });
 
-})();
+});
 
 /** 
  * Test Object.equals comparison operators
@@ -167,4 +167,4 @@
     return Object.equals(proxy1, proxy5, null);
   });
 
-})();
+});
