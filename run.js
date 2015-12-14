@@ -1,9 +1,13 @@
-run("JavaScript Transparent Proxy", function() {
 
-  load("test.equality.js");
-  load("test.inequality.js");
 
-  load("test.map.js");
-  load("test.set.js");
+load("test.equality.js");
+//load("test.inequality.js");
 
-}, true);
+//load("test.equals.js");
+
+//load("test.map.js");
+//load("test.set.js");
+//
+//
+
+Test.run(true);

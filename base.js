@@ -1,72 +1,105 @@
-var files = 0;
-var tests = 0;
-var failed = 0;
-var passed = 0;
-var skipped = 0;
 
-var ftests = new Set();
-var stests = new Set();
 
-var rname = "";
-var tname = "";
 
-function run(name = "", rclosure) {
-  rname = name;
 
+/**
+ * Constructor function for tests
+ */
+function Test(name, test) {
+  if(this ..)
+
+
+  this.name = name;
+  this.test = test;
+  Test.tests.add(this);
+}
+
+/**
+ * Lists of all tests
+ **/
+Test.tests = new Set();
+
+/**
+ * Lists of all test cases
+ **/
+Test.failed = new Set();
+Test.skipped = new Set();
+Test.passed = new Set();
+
+/**
+ * Runs the created test tests 
+ **/
+Test.run = function(verbose=false) {
   var tstart = Date.now();
-  rclosure();
+
+  for(var test of Test.tests) {
+    if(verbose) print(`\n;;; Run ${test.name}`);
+    test.test.apply({});
+  }
+  
   var tend = Date.now();
   var dur = tend-tstart;
 
-  print(`\n${rname}`);
-  print(`Files:${files}, Tests:${tests}, Failed:${failed}, Passed:${passed}, Skipped:${skipped} (${dur} ms)`);
+  var cases = Test.failed.size + Test.passed.size + Test.skipped.size;
 
-  if(failed==0 && skipped==0) {
-    print("All tests successful.")
+  print(`\nTests:${Test.tests.size}, Cases:${cases}, Failed:${Test.failed.size}, Passed:${Test.passed.size}, Skipped:${Test.skipped.size} (${dur} ms)`);
+
+  if(Test.failed.size==0 && Test.skipped.size==0) {
+    print(";;; All tests successful.")
   }
 
-  if(failed!=0) {
-    print(`\n${failed} tests failed.`);
-    for(var test of ftests) print(`\n*** Failed (given:${test.given}, expect:${test.expect}) @ ${test.pred}`);
+  if(Test.failed.size!=0) {
+    print(`\n${Test.failed.size} tests failed.`);
+    for(var test of Test.failed) print(`\n*** Failed (given:${test.given}, expect:${test.expect}) @ ${test.pred}`);
   }
 
-  if(skipped!=0) {
-    print(`\n${skipped} tests skipped.`);
-    for(var test of stests) print(`\n*** Skipped @ ${test.pred}`);
+  if(Test.skipped.size!=0) {
+    print(`\n${Test.skipped.size} tests skipped.`);
+    for(var test of Test.skipped) print(`\n*** Skipped @ ${test.pred}`);
   }
-}
+};
 
-function test(name = "", tclosure) {
-  tname = name;
-  files++;
-  tclosure();
-}
-
-function toBe(skip, val) {
-  tests++;
+/**
+ * Function toBe 
+ **/
+Test.toBe = function(skip, value) {
 
   if(skip) {
-    skipped++;
-    stests.add({run:rname, test:tname, pred: this});
-    return false;
+    Test.skipped.add({predicate:this});
+    return true;
   } 
 
-  var res = this.apply();
+  var result = this.apply();
 
-  if(res===val) {
-    passed++;
+  if(result===value) {
+    Test.passed.add({predicate:this});
     return true;
   } else {
-    failed++;
-    ftests.add({run:rname, test:tname, pred:this, expect:val, given:res});
+    Test.failed.add({predicate:this, expect:value, given:result});
     return true;
   }
 }
 
-function expect(pred, skip) {
-  Object.defineProperty(pred, "toBe", {
-    value: toBe.bind(pred, skip), writable: false, configurable: false,
+/**
+ * Function expect
+ **/
+Test.expect = function (predicate, skip=false) {
+  Object.defineProperty(predicate, "toBe", {
+    value: Test.toBe.bind(predicate, skip), writable: false, configurable: false,
   });
+  return predicate;
+}
 
-  return pred;
+/**
+ * Function expect true
+ **/
+Test.expectTrue = function (predicate, skip=false) {
+  return Test.toBe.call(predicate, skip, true);
+}
+
+/**
+ * Function expect false
+ **/
+Test.expectFalse = function (predicate, skip=false) {
+  return Test.toBe.call(predicate, skip, false);
 }
