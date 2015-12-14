@@ -6,7 +6,7 @@ new Test('Equality Operator (==)', function() {
 
   this.expect(function() {
     return target1 == new Proxy(target1, {});
-  }).toBe(true);
+  }).toBe(false);
 
   this.expect(function() {
     return new Proxy(target1, {}) == new Proxy(target1, {});
