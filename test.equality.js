@@ -1,18 +1,18 @@
-new Test('Proxy/ Equality Operator (==)', function() {
+new Test('Equality Operator (==)', function() {
 
   // target values
   var target1 = {};
   var target2 = {};
 
-  Test.expect(function() {
+  this.expect(function() {
     return target1 == new Proxy(target1, {});
-  }).toBe(false);
+  }).toBe(true);
 
-  Test.expect(function() {
+  this.expect(function() {
     return new Proxy(target1, {}) == new Proxy(target1, {});
   }).toBe(false);
 
-  Test.expect(function() {
+  this.expect(function() {
     return new Proxy(target1, {}) == new Proxy(target2, {});
   }).toBe(false);
 
