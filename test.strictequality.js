@@ -4,7 +4,7 @@ new Test('Strict Equality (===)/ Default', function() {
   var target1 = {};
   var target2 = {};
 
-  // primitive
+  // primitives
   var primitive1 = 1;
   var primitive2 = "1";
 

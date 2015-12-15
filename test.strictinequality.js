@@ -1,10 +1,10 @@
-new Test('Inequality (!==)/ Default', function() {
+new Test('Strict Inequality (!==)/ Default', function() {
 
   // target values
   var target1 = {};
   var target2 = {};
 
-  // primitive
+  // primitives
   var primitive1 = 1;
   var primitive2 = "1";
 
@@ -26,7 +26,7 @@ new Test('Inequality (!==)/ Default', function() {
 
 });
 
-new Test('Inequality (!==)/ Opaque', function() {
+new Test('Strict Inequality (!==)/ Opaque', function() {
 
   // target values
   var target1 = {};
@@ -46,7 +46,7 @@ new Test('Inequality (!==)/ Opaque', function() {
 
 });
 
-new Test('Inequality (!==)/ Transparent', function() {
+new Test('Strict Inequality (!==)/ Transparent', function() {
 
   // target values
   var target1 = {};
@@ -66,7 +66,7 @@ new Test('Inequality (!==)/ Transparent', function() {
 
 });
 
-new Test('Inequality (!==)/ Nested', function() {
+new Test('Strict Inequality (!==)/ Nested', function() {
 
   // target values
   var target1 = {};
