@@ -14,4 +14,4 @@
 
 load("test.equality.js");
 
-Test.run(true);
+Test.run({verbose:true, mode:Test.INTERPRETER});

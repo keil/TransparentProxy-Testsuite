@@ -84,12 +84,33 @@ Test.passed  = new Set();
 /**
  * Runs the created test tests 
  **/
-Test.run = function(verbose=false, ion=false, baseline=false) {
+Test.run = function(configuration) {
   var tstart = Date.now();
 
   for(var test of Test.tests) {
-    if(verbose) print(`\nRun: ${test.name}`);
+    if(configuration.verbose) print(`\nRun: ${test.name}`);
     test.closure.apply(test);
+  }
+
+  switch(configuration.mode) {
+          case Test.INTERPRETER:
+                        doUntil(function() { return true; });
+                  break;
+          case Test.JIT:
+                  doUntil(inJit);
+                  break;
+
+          case Test.ION:
+                  doUntil(inIon);
+                  break;
+
+  }
+
+  function doUntil(test) {
+          if(!test()) {
+                  test.closure.apply(test);
+                  doUntil(test);
+          }
   }
 
   var tend = Date.now();
@@ -98,6 +119,7 @@ Test.run = function(verbose=false, ion=false, baseline=false) {
   var cases = Test.failed.size + Test.passed.size + Test.skipped.size;
 
   print(`\nTests:${Test.tests.size}, Cases:${cases}, Failed:${Test.failed.size}, Passed:${Test.passed.size}, Skipped:${Test.skipped.size} (${dur} ms)`);
+  print(`JIT:${inJit()}, Ion:${inIon()}`);
 
   if(Test.failed.size==0 && Test.skipped.size==0) {
     print("All tests successful.")
@@ -113,3 +135,16 @@ Test.run = function(verbose=false, ion=false, baseline=false) {
     for(var test of Test.skipped) print(`\n**** Skipped ${test.name}: ${test.predicate}`);
   }
 }
+
+/**
+ * Test Mode
+ **/
+
+// Test interpreter only 
+Test.INTERPRETER = 0;
+// Test interpreter and baseline JIT 
+Test.JIT         = 1;
+// Test interpreter, baseline JIT, and IonMonkey 
+Test.ION         = 2;
+
+
