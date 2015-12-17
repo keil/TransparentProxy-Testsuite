@@ -12,6 +12,13 @@
  *
  **/
 
+// Load tests
 load("test.equality.js");
 
-Test.run({verbose:true, mode:Test.INTERPRETER});
+// Run all created tests
+Test.run({
+        // set verbose mode
+        verbose:true,
+        // enforce evaluation mode
+        mode:Test.Interpreter
+});

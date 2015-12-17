@@ -15,11 +15,12 @@
 /**
  * Constructor function for tests
  **/
-function Test(name, closure) {
+function Test(name, closure, mode=Test.INTERPRETER) {
   if(!(this instanceof Test)) return new Test(...Array.from(arguments));
 
   this.name = name;
   this.closure = closure;
+  this.mode = mode;
 
   Test.tests.add(this);
 }
@@ -33,7 +34,24 @@ Test.prototype.toBe = function (name="unnamed test", skip=false, value=undefined
     return true;
   } 
 
-  var result = this.apply();
+
+  witch(configuration.mode) {
+          case Test.JIT:
+                  var finished = inJit;
+                  break;
+          case Test.ION:
+                  var finished = inIon;
+                  break;
+          case Test.INTERPRETER:
+          default:    
+                  var finished = (function() { return true; });
+                  break;
+  }
+
+  do {
+    var result = this.apply();
+  }
+  while (finished());
 
   if(result===value) {
     Test.passed.add({name:name, predicate:this});
@@ -92,29 +110,8 @@ Test.run = function(configuration) {
     test.closure.apply(test);
   }
 
-  switch(configuration.mode) {
-          case Test.INTERPRETER:
-                        doUntil(function() { return true; });
-                  break;
-          case Test.JIT:
-                  doUntil(inJit);
-                  break;
-
-          case Test.ION:
-                  doUntil(inIon);
-                  break;
-
-  }
-
-  function doUntil(test) {
-          if(!test()) {
-                  test.closure.apply(test);
-                  doUntil(test);
-          }
-  }
-
   var tend = Date.now();
-  var dur = tend-tstart;
+  var duration = tend-tstart;
 
   var cases = Test.failed.size + Test.passed.size + Test.skipped.size;
 
@@ -146,5 +143,3 @@ Test.INTERPRETER = 0;
 Test.JIT         = 1;
 // Test interpreter, baseline JIT, and IonMonkey 
 Test.ION         = 2;
-
-
