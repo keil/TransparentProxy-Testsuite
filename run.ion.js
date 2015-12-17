@@ -25,7 +25,7 @@ Test.verbose = true;
  * - Test.Baseline
  * - Test.IonMonkey
  */ 
-Test.mode = Test.Interpreter;
+Test.mode = Test.IonMonkey;
 
 /** 
  * Run all created tests
