@@ -12,13 +12,29 @@
  *
  **/
 
-// Load tests
+/** 
+ * Load tests
+ */
 load("test.equality.js");
 
-// Run all created tests
-Test.run({
-        // set verbose mode
-        verbose:true,
-        // enforce evaluation mode
-        mode:Test.Interpreter
-});
+/**
+ * Verbose Mode
+ * - true
+ * - false
+ */ 
+Test.verbose = true;
+
+/**
+ * Evaluation Mode
+ * - Test.Interpreter
+ * - Test.Baseline
+ * - Test.IonMonkey
+ */ 
+//Test.mode = Test.Interpreter;
+//Test.mode = Test.Baseline;
+Test.mode = Test.IonMonkey;
+
+/** 
+ * Run all created tests
+ */
+Test.run();

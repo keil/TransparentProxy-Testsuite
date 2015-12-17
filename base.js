@@ -34,24 +34,28 @@ Test.prototype.toBe = function (name="unnamed test", skip=false, value=undefined
     return true;
   } 
 
-
-  witch(configuration.mode) {
-          case Test.JIT:
-                  var finished = inJit;
-                  break;
-          case Test.ION:
-                  var finished = inIon;
-                  break;
-          case Test.INTERPRETER:
-          default:    
-                  var finished = (function() { return true; });
-                  break;
+  switch(Test.mode) {
+    case Test.Baseline:
+      var finished = inJit;
+      break;
+    case Test.IonMonkey:
+      var finished = inIon;
+      break;
+    case Test.Interpreter:
+    default:
+      var finished = (function() { return true; });
+      break;
   }
+
+  //print("mode", finished.toString());
+
 
   do {
+    if(Test.verbose) print(`JIT:${inJit()}, Ion:${inIon()}`);
     var result = this.apply();
+    print("finished", finished());
   }
-  while (finished());
+  while (!finished());
 
   if(result===value) {
     Test.passed.add({name:name, predicate:this});
@@ -88,6 +92,27 @@ Test.expectFalse = function (predicate, skip=false) {
 }
 
 /**
+ * Test Mode
+ **/
+
+/**
+ * Evaluation Mode
+ *
+ * The flags specify how many times a test should run.
+ * The evaluation mode defines a termination condition.
+ * (e.g. in the IonMonkey mode a test runs until the IonMonkey starts)
+ * To guarantee that only the Baseline JIT/Interpreter runs 
+ * the IonMonkey/Basline JIT needs to be deactivated manually.
+ */
+
+// Test interpreter only 
+Test.Interpreter = "Interpreter";
+// Test interpreter and baseline JIT 
+Test.Baseline    = "Baseline JIT";
+// Test interpreter, baseline JIT, and IonMonkey 
+Test.IonMonkey   = "IonMonkey";
+
+/**
  * Lists of all tests
  **/
 Test.tests = new Set();
@@ -100,13 +125,19 @@ Test.skipped = new Set();
 Test.passed  = new Set();
 
 /**
+ * Default Configuration 
+ **/
+Test.verbose = false;
+Test.mode = Test.Interpreter;
+
+/**
  * Runs the created test tests 
  **/
-Test.run = function(configuration) {
+Test.run = function() {
   var tstart = Date.now();
 
   for(var test of Test.tests) {
-    if(configuration.verbose) print(`\nRun: ${test.name}`);
+    if(Test.verbose) print(`\nRun: ${test.name}`);
     test.closure.apply(test);
   }
 
@@ -115,8 +146,7 @@ Test.run = function(configuration) {
 
   var cases = Test.failed.size + Test.passed.size + Test.skipped.size;
 
-  print(`\nTests:${Test.tests.size}, Cases:${cases}, Failed:${Test.failed.size}, Passed:${Test.passed.size}, Skipped:${Test.skipped.size} (${dur} ms)`);
-  print(`JIT:${inJit()}, Ion:${inIon()}`);
+  print(`\nTests:${Test.tests.size}, Cases:${cases}, Failed:${Test.failed.size}, Passed:${Test.passed.size}, Skipped:${Test.skipped.size} (${duration} ms, Mode:${Test.mode})`);
 
   if(Test.failed.size==0 && Test.skipped.size==0) {
     print("All tests successful.")
@@ -132,14 +162,3 @@ Test.run = function(configuration) {
     for(var test of Test.skipped) print(`\n**** Skipped ${test.name}: ${test.predicate}`);
   }
 }
-
-/**
- * Test Mode
- **/
-
-// Test interpreter only 
-Test.INTERPRETER = 0;
-// Test interpreter and baseline JIT 
-Test.JIT         = 1;
-// Test interpreter, baseline JIT, and IonMonkey 
-Test.ION         = 2;

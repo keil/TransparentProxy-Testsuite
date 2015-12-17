@@ -17,11 +17,11 @@ new Test('Inequality (!=)/ Default', function() {
   }).toBe(true);
 
   this.expect(function() {
-    return primitve1 != primitve1;
+    return primitive1 != primitive1;
   }).toBe(false);
 
   this.expect(function() {
-    return primitve1 != primitve2;
+    return primitive1 != primitive2;
   }).toBe(true);
 
 });
