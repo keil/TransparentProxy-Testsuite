@@ -17,7 +17,7 @@
  * - true
  * - false
  */ 
-Test.verbose = true;
+Test.verbose = false;
 
 /**
  * Evaluation Mode

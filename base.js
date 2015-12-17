@@ -33,29 +33,8 @@ Test.prototype.toBe = function (name="unnamed test", skip=false, value=undefined
     Test.skipped.add({name:name, predicate:this});
     return true;
   } 
-
-  switch(Test.mode) {
-    case Test.Baseline:
-      var finished = inJit;
-      break;
-    case Test.IonMonkey:
-      var finished = inIon;
-      break;
-    case Test.Interpreter:
-    default:
-      var finished = (function() { return true; });
-      break;
-  }
-
-  //print("mode", finished.toString());
-
-
-  do {
-    if(Test.verbose) print(`JIT:${inJit()}, Ion:${inIon()}`);
-    var result = this.apply();
-    print("finished", finished());
-  }
-  while (!finished());
+ 
+  var result = Test.eval(this);
 
   if(result===value) {
     Test.passed.add({name:name, predicate:this});
@@ -89,6 +68,46 @@ Test.expectTrue = function (predicate, skip=false) {
  **/
 Test.expectFalse = function (predicate, skip=false) {
   return Test.prototype.toBe.apply(predicate, this.name, skip, false);
+}
+
+/**
+ * Runs a particular test case
+ **/
+Test.eval = function(testcase) {
+
+  // Runs every test 100 times until the termination 
+  // condition is true. If the condition is false than it 
+  // repeats this procedure.
+
+  switch(Test.mode) {
+    case Test.Baseline:
+      var finished = inJit;
+      break;
+    case Test.IonMonkey:
+      var finished = inIon;
+      break;
+    case Test.Interpreter:
+    default:
+      var finished = (function() { return true; });
+      break;
+  }
+
+  try {
+  // TODO, try catch
+  do {
+    for(var i=0; i<100; i++) {
+      if(Test.verbose) print(`Test: ${testcase.toString()}`);
+      // TODO
+      if(Test.verbose) print(`JIT:${inJit()}, Ion:${inIon()}`);
+      var result = testcase.apply();
+    }
+  }
+  while (!finished());
+  } catch(e) {
+    print("Error ... ");
+  }
+
+  return result;
 }
 
 /**
@@ -136,8 +155,9 @@ Test.mode = Test.Interpreter;
 Test.run = function() {
   var tstart = Date.now();
 
+  print(`\n`);
   for(var test of Test.tests) {
-    if(Test.verbose) print(`\nRun: ${test.name}`);
+    print(`Run: ${test.name}`);
     test.closure.apply(test);
   }
 

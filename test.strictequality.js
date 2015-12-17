@@ -82,18 +82,18 @@ new Test('Strict Equality (===)/ Nested', function() {
 
   this.expect(function() {
     return new TransparentProxy(target1, {}) === new TransparentProxy(new TransparentProxy(target1, {}), {});
-  }).toBe(true);
+  }, true).toBe(true);
 
   this.expect(function() {
     return new TransparentProxy(target1, {}) === new TransparentProxy(new TransparentProxy(target2, {}), {});
-  }).toBe(false);
+  }, true).toBe(false);
 
   this.expect(function() {
     return new TransparentProxy(target1, {}) === new TransparentProxy(new Proxy(target1, {}), {});
-  }).toBe(false);
+  }, true).toBe(false);
 
   this.expect(function() {
     return new Proxy(target1, {}) === new TransparentProxy(new TransparentProxy(target1, {}), {});
-  }).toBe(false);
+  }, true).toBe(false);
 
 });

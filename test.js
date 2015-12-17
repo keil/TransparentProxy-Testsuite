@@ -16,3 +16,6 @@
  * Load tests
  */
 load("test.equality.js");
+load("test.inequality.js");
+load("test.strictequality.js");
+load("test.strictinequality.js");
