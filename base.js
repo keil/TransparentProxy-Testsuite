@@ -100,11 +100,12 @@ Test.eval = function(testcase) {
       // TODO
       if(Test.verbose) print(`JIT:${inJit()}, Ion:${inIon()}`);
       var result = testcase.apply();
+      // gc();
     }
   }
   while (!finished());
   } catch(e) {
-    print("Error ... ");
+    print("Error ... "); // TODO
   }
 
   return result;
