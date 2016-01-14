@@ -94,6 +94,6 @@ new Test('Strict Inequality (!==)/ Nested', function() {
 
   this.expect(function() {
     return new Proxy(target1, {}) !== new TransparentProxy(new TransparentProxy(target1, {}), {});
-  }, true).toBe(true);
+  }).toBe(true);
 
 });

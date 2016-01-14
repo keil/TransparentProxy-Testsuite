@@ -1,1 +1,1 @@
-/scratch/mozilla-central/js/src/build_OPT.20151105/js/src/shell/js
+/scratch/gecko-dev/js/src/build_20160107/js/src/shell/js
