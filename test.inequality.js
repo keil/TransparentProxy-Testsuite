@@ -22,7 +22,7 @@ new Test('Inequality (!=)/ Default', function() {
 
   this.expect(function() {
     return primitive1 != primitive2;
-  }).toBe(true);
+  }).toBe(false);
 
 });
 

@@ -18,7 +18,7 @@ new Test('Strict Equality (===)/ Default', function() {
 
   this.expect(function() {
     return primitive1 === primitive1;
-  }).toBe(false);
+  }).toBe(true);
 
   this.expect(function() {
     return primitive1 === primitive2;

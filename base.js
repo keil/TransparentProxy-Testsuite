@@ -33,7 +33,7 @@ Test.prototype.toBe = function (name="unnamed test", skip=false, value=undefined
     Test.skipped.add({name:name, predicate:this});
     return true;
   } 
- 
+
   var result = Test.eval(this);
 
   if(result===value) {
@@ -93,19 +93,19 @@ Test.eval = function(testcase) {
   }
 
   try {
-  // TODO, try catch
-  do {
-    for(var i=0; i<100; i++) {
-      if(Test.verbose) print(`Test: ${testcase.toString()}`);
-      // TODO
-      if(Test.verbose) print(`JIT:${inJit()}, Ion:${inIon()}`);
-      var result = testcase.apply();
-      // gc();
+    do {
+      for(var i=0; i<10; i++) {
+        if(Test.verbose) print(`Test: ${testcase.toString()}`);
+        if(Test.verbose) print(`JIT:${inJit()}, Ion:${inIon()}`);
+        
+        var result = testcase.apply();
+        if(Test.gc) gc();
+      }
     }
-  }
-  while (!finished());
+    while (!finished());
   } catch(e) {
-    print("Error ... "); // TODO
+    if(Test.verbose) print(e);
+    var result = false;
   }
 
   return result;
@@ -131,6 +131,9 @@ Test.Interpreter = "Interpreter";
 Test.Baseline    = "Baseline JIT";
 // Test interpreter, baseline JIT, and IonMonkey 
 Test.IonMonkey   = "IonMonkey";
+
+// Enforce gabage collection
+Test.gc = true;
 
 /**
  * Lists of all tests

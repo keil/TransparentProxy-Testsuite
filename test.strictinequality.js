@@ -18,7 +18,7 @@ new Test('Strict Inequality (!==)/ Default', function() {
 
   this.expect(function() {
     return primitive1 !== primitive1;
-  }).toBe(true);
+  }).toBe(false);
 
   this.expect(function() {
     return primitive1 !== primitive2;
@@ -38,11 +38,11 @@ new Test('Strict Inequality (!==)/ Opaque', function() {
 
   this.expect(function() {
     return new Proxy(target1, {}) !== new Proxy(target1, {});
-  }, true).toBe(true);
+  }).toBe(true);
 
   this.expect(function() {
     return new Proxy(target1, {}) !== new Proxy(target2, {});
-  }, true).toBe(true);
+  }).toBe(true);
 
 });
 
@@ -54,15 +54,15 @@ new Test('Strict Inequality (!==)/ Transparent', function() {
 
   this.expect(function() {
     return target1 !== new TransparentProxy(target1, {});
-  }, true).toBe(false);
+  }).toBe(false);
 
   this.expect(function() {
     return new TransparentProxy(target1, {}) !== new TransparentProxy(target1, {});
-  }, true).toBe(false);
+  }).toBe(false);
 
   this.expect(function() {
     return new TransparentProxy(target1, {}) !== new TransparentProxy(target2, {});
-  }, true).toBe(true);
+  }).toBe(true);
 
 });
 
@@ -76,7 +76,7 @@ new Test('Strict Inequality (!==)/ Nested', function() {
     return target1 !== new TransparentProxy(new TransparentProxy(target1, {}), {});
   }).toBe(false);
 
- this.expect(function() {
+  this.expect(function() {
     return target1 !== new TransparentProxy(new TransparentProxy(target2, {}), {});
   }).toBe(true);
 

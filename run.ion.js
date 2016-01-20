@@ -27,6 +27,11 @@ Test.verbose = false;
  */ 
 Test.mode = Test.IonMonkey;
 
+/**
+ * Garbage collection 
+ */
+Test.hs = true;
+
 /** 
  * Run all created tests
  */

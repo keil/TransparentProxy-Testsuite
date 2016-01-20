@@ -27,6 +27,11 @@ Test.verbose = false;
  */ 
 Test.mode = Test.Baseline;
 
+/**
+ * Garbage collection 
+ */
+Test.hs = true;
+
 /** 
  * Run all created tests
  */
