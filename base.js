@@ -3,7 +3,7 @@
  * JavaScript Test Suite
  * =====================
  *
- * Copyright (c) 2015, Proglang, University of Freiburg.
+ * Copyright (c) 2015-2016, Proglang, University of Freiburg.
  * http://proglang.informatik.uni-freiburg.de/
  * All rights reserved.
  *
