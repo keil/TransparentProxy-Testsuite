@@ -105,7 +105,7 @@ Test.eval = function(testcase) {
     while (!finished());
   } catch(e) {
     if(Test.verbose) print(e);
-    var result = false;
+    var result = "Error";
   }
 
   return result;

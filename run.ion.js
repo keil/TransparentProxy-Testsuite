@@ -30,7 +30,7 @@ Test.mode = Test.IonMonkey;
 /**
  * Garbage collection 
  */
-Test.hs = true;
+Test.gc = true;
 
 /** 
  * Run all created tests

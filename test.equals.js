@@ -14,156 +14,156 @@ new Test('Object.equals/ Default', function() {
   var primitive1 = 1;
   var primitive2 = 2;
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object1, object1);
   }).toBe(true);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object1, object1, null);
   }).toBe(true);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object1, object1, undefined);
   }).toBe(true);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object1, object1, 1);
   }).toBe(true);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object1, object1, {});
   }).toBe(true);
 
 
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object1, object2);
   }).toBe(false);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object1, object2, null);
   }).toBe(false);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object1, object2, undefined);
   }).toBe(false);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object1, object2, 1);
   }).toBe(false);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object1, object2, {});
   }).toBe(false);
 
 
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(primitive1, primitive1);
   }).toBe(true);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(primitive1, primitive1, null);
   }).toBe(true);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(primitive1, primitive1, undefined);
   }).toBe(true);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(primitive1, primitive1, 1);
   }).toBe(true);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(primitive1, primitive1, {});
   }).toBe(true);
 
 
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(primitive1, primitive2);
   }).toBe(false);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(primitive1, primitive2, null);
   }).toBe(false);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(primitive1, primitive2, undefined);
   }).toBe(false);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(primitive1, primitive2, 1);
   }).toBe(false);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(primitive1, primitive2, {});
   }).toBe(false);
 
 
 
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object1, primitive1);
   }).toBe(false);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object1, primitive1, null);
   }).toBe(false);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object1, primitive1, undefined);
   }).toBe(false);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object1, primitive1, 1);
   }).toBe(false);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object1, primitive1, {});
   }).toBe(false);
 
 
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object3, primitive1);
   }).toBe(false);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object3, primitive1, null);
   }).toBe(false);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object3, primitive1, undefined);
   }).toBe(false);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object3, primitive1, 1);
   }).toBe(false);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object3, primitive1, {});
   }).toBe(false);
 
 
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object4, primitive1);
   }).toBe(false);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object4, primitive1, null);
   }).toBe(false);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object4, primitive1, undefined);
   }).toBe(false);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object4, primitive1, 1);
   }).toBe(false);
 
-  expect(function() {
+  this.expect(function() {
     return Object.equals(object4, primitive1, {});
   }).toBe(false);
 

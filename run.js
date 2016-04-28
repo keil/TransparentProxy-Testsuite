@@ -30,7 +30,7 @@ Test.mode = Test.Interpreter;
 /**
  * Garbage collection 
  */
-Test.hs = true;
+Test.gc = true;
 
 /** 
  * Run all created tests

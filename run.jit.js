@@ -30,7 +30,7 @@ Test.mode = Test.Baseline;
 /**
  * Garbage collection 
  */
-Test.hs = true;
+Test.gc = true;
 
 /** 
  * Run all created tests
