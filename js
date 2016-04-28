@@ -1,1 +1,0 @@
-/scratch/gecko-dev/js/src/build_20160427/js/src/shell/js
